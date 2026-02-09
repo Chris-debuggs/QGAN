@@ -32,4 +32,9 @@ TOTAL_PIXELS = IMAGE_SIZE * IMAGE_SIZE     # 64 total pixels
 
 # --- Device Configuration ---
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-Q_DEV = qml.device("lightning.qubit", wires=N_QUBITS)
+
+# Use default.qubit with PyTorch - combined with interface="torch" in circuits.py
+# this enables GPU acceleration via PyTorch's CUDA backend
+Q_DEV = qml.device("default.qubit", wires=N_QUBITS)
+print(f"✓ PyTorch device: {DEVICE}")
+print(f"✓ Quantum device: default.qubit (torch interface, backprop)")
