@@ -9,7 +9,7 @@ import torch
 import config
 
 
-@qml.qnode(config.Q_DEV, diff_method="parameter-shift")
+@qml.qnode(config.Q_DEV, interface="torch", diff_method="backprop")
 def quantum_circuit(noise, weights):
     """
     Variational quantum circuit for image generation.
