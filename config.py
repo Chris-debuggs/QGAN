@@ -22,7 +22,7 @@ TARGET_DIGIT = 0      # Which digit to train on
 
 # --- Training Parameters ---
 LR_GENERATOR = 0.3    # Learning rate for generator
-LR_DISCRIMINATOR = 0.01  # Learning rate for discriminator
+LR_DISCRIMINATOR = 0.001  # Learning rate for discriminator
 NUM_EPOCHS = 50       # Number of training epochs
 LOG_INTERVAL = 10     # Log every N epochs
 

@@ -38,7 +38,7 @@ def train():
     optD = optim.SGD(discriminator.parameters(), lr=config.LR_DISCRIMINATOR)
     
     # Labels
-    real_labels = torch.ones(config.BATCH_SIZE, 1, device=config.DEVICE)
+    real_labels = torch.full((config.BATCH_SIZE, 1), 0.9, device=config.DEVICE)
     fake_labels = torch.zeros(config.BATCH_SIZE, 1, device=config.DEVICE)
     
     # History for visualization
@@ -79,16 +79,21 @@ def train():
             optD.step()
             
             # =====================
-            # Train Generator
+            # Train Generator (3x more often)
             # =====================
-            generator.zero_grad()
-            
-            # Generator wants discriminator to think fakes are real
-            out_gen = discriminator(fake_imgs)
-            loss_G = criterion(out_gen, real_labels)
-            
-            loss_G.backward()
-            optG.step()
+            for _ in range(3):
+                generator.zero_grad()
+                
+                # Generate fresh noise for every step
+                noise = torch.rand(config.BATCH_SIZE, config.N_QUBITS, device=config.DEVICE) * np.pi / 2
+                fake_imgs = generator(noise)
+                
+                # Generator wants discriminator to think fakes are real
+                out_gen = discriminator(fake_imgs)
+                loss_G = criterion(out_gen, real_labels)
+                
+                loss_G.backward()
+                optG.step()
             
             # Accumulate losses
             epoch_loss_D += loss_D.item()
