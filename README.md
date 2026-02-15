@@ -71,4 +71,4 @@ N_GENERATORS = 64        # 1024 / 16 = 64 patches
 ## References
 
 - [PennyLane Quantum GAN Tutorial](https://pennylane.ai/qml/demos/tutorial_quantum_gans/)
-- Huang et al. "Experimental Quantum Generative Adversarial Networks" (2020)
+- Huang et al. "Experimental Quantum Generative Adversarial Networks" (2020) 
